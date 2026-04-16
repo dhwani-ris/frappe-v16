@@ -1,12 +1,14 @@
+# Copy this to your project root as .pre-commit-config.yaml
+# IMPORTANT: First install the package: pip install frappe-pre-commit
+
 exclude: 'node_modules|.git'
 default_stages: [pre-commit]
-default_install_hook_types: [pre-commit, commit-msg]
 fail_fast: false
 
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
         files: "frappe.*"
@@ -22,17 +24,20 @@ repos:
         exclude: ^frappe/tests/classes/context_managers\.py$
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.10
+    rev: v0.8.1
     hooks:
       - id: ruff
         name: "Run ruff import sorter"
         args: ["--select=I", "--fix"]
+        exclude: ^\.github/helper/
 
       - id: ruff
         name: "Run ruff linter"
+        exclude: ^\.github/helper/
 
       - id: ruff-format
         name: "Run ruff formatter"
+        exclude: ^\.github/helper/
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.7.1
@@ -70,12 +75,24 @@ repos:
                 frappe/public/js/lib/.*
             )$
 
-  - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v9.23.0
+  # Frappe-specific coding standards
+  # The frappe-pre-commit package will be installed automatically
+  - repo: https://github.com/dhwani-ris/frappe-pre-commit
+    rev: v1.0.4
     hooks:
-      - id: commitlint
-        stages: [commit-msg]
-        additional_dependencies: ['conventional-changelog-conventionalcommits']
+      - id: frappe-sql-security
+      - id: frappe-doctype-naming
+      - id: frappe-coding-standards
+
+# Alternative: Use all checks in one hook
+# - repo: https://github.com/dhwani-ris/frappe-pre-commit
+#   rev: v1.0.0
+#   hooks:
+#     - id: frappe-all-checks
+
+# Configuration for specific tools
+default_language_version:
+  python: python3
 
 ci:
     autoupdate_schedule: weekly
