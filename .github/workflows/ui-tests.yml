@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Clone
-        uses: actions/checkout@v6
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v6
 
       - name: Check if build should be run
         id: check-build
@@ -55,11 +55,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone
-        uses: actions/checkout@v6
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v6
       - name: Download artifacts
-        uses: actions/download-artifact@v7.0.0
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v7.0.0
       - name: Upload python coverage data
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@0fb7174895f61a3b6b78fc075e0cd60383518dac  # v5
         with:
           name: UIBackend
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
           exclude: coverage-js*
           flags: server-ui
       - name: Upload JS coverage data
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@0fb7174895f61a3b6b78fc075e0cd60383518dac  # v5
         with:
           name: Cypress
           token: ${{ secrets.CODECOV_TOKEN }}
