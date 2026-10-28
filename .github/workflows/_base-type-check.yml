@@ -14,7 +14,7 @@ jobs:
     steps:
     - run: npm install toml
     - name: Get pyproject.toml
-      uses: actions/github-script@v8
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
       id: get-pyproject
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
@@ -33,7 +33,7 @@ jobs:
           return { mypyFiles, content };
 
     - name: Check for changes in mypy files
-      uses: actions/github-script@v8
+      uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
       id: check-changes
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
@@ -67,7 +67,7 @@ jobs:
       if: steps.check-changes.outputs.result == 'true'
     
     - name: Cache pip
-      uses: actions/cache@v4
+      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
       if: steps.check-changes.outputs.result == 'true'
       with:
         path: ~/.cache/pip
